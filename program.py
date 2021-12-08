@@ -3,7 +3,8 @@
 # Reads all data (matrices, constants) needed to perform the chosen operation. The example shows the input format in each case.
 # Calculates the result and outputs it. The example shows how your output should look like.
 # Repeats all these steps.
-
+import sys
+print(sys.version)
 promptWords = ['Enter size of first matrix: ', 'Enter size of second matrix: ']
 error = 'The operation cannot be performed'
 class Size:
@@ -19,7 +20,7 @@ class MatrixAndDims:
 def matrixInput(prompt=f'Enter size of matrix'):
     x, y = input(prompt).split()
     size = (int(x), int(y))
-    matrix = [list(map(int, input(f'Enter matrix:  ').split())) for _ in range(int(x))]
+    matrix = [list(map(float, input(f'Enter matrix (row {_ + 1}):  ').split())) for _ in range(int(x))]
     return MatrixAndDims(size, matrix)
 
 def stringifyAndPrint(matrix):
@@ -37,16 +38,6 @@ def transpose_matrix(matrix):
             if sub_index == len(matrix) - 1:
                 new_matrix.append(new_sub_list)
     return new_matrix
-# matrixExample = matrixInput()
-# print(matrixExample)
-# print(matrixExample.size.x)
-# print(matrixExample.matrix)
-# print(matrixExample.matrix[0])
-
-# programRunning = True
-# while programRunning:
-#     chosenOperation = input('1. Add matrices\n2. Multiply matrix by a constant\n3. Multiply matrices\n0. Exit\nYour choice : ')
-#     if chosenOperation == '0': programRunning = False
 
 def matrixAddition():
     matrix1 = matrixInput(promptWords[0])
@@ -61,7 +52,7 @@ def matrixAddition():
 
 def matrixMultByConst():
     matrix1 = matrixInput(promptWords[0])
-    constant = int(input())
+    constant = int(input('Multiply by: '))
     nestedNew = [[y * constant for y in x] for x in matrix1.matrix]
     stringifyAndPrint(nestedNew)
 
@@ -76,26 +67,31 @@ def matrixMultiplication():
     dot_sum = 0
     if matrix1.size.y == matrix2.size.x:
         for _ in range(len(matrix1.matrix)):
-            for i in range(len(matrix1.matrix)):
-                for x in range(len(matrix1.matrix[0])):
+            for i in range(len(matrix2T)):
+                for x in range(len(matrix2T[0])):
                     dot_sum += matrix1.matrix[_][x] * matrix2T[i][x]
                     if x == len(matrix1.matrix[0]) - 1:
                         nested.append(dot_sum)
                         dot_sum = 0
-                    if x == len(matrix1.matrix[0]) - 1 and i == len(matrix1.matrix) - 1:
+                    if x == len(matrix1.matrix[0]) - 1 and i == len(matrix2T) - 1:
                         listFinal.append(nested)
                         nested = []
-        print(listFinal)
+        stringifyAndPrint(listFinal)
     else: print(error)
 
-matrixMultiplication()
+# PROGRAM
+programRunning = True
+while programRunning:
+    chosenOperation = input('1. Add matrices\n2. Multiply matrix by a constant\n3. Multiply matrices\n0. Exit\nYour choice : ')
+    if chosenOperation == '1':
+        matrixAddition()
+    if chosenOperation == '2':
+        matrixMultByConst()
+    if chosenOperation == '3':
+        matrixMultiplication()
+    if chosenOperation == '0':
+        programRunning = False
 
-
-# matrixMultByConst()
-
-# perform addition function on matrices
-
-# return finished matrix
 
 
 
