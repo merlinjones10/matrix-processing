@@ -10,6 +10,16 @@ list2 = [[4, 3],
 nested = []
 listFinal = []
 dot_sum = 0
+def transpose_matrix(matrix):
+    new_matrix = []
+    for index in range(len(matrix[0])):
+        new_sub_list = []
+        for sub_index in range(len(matrix)):
+            new_sub_list.append(matrix[sub_index][index])
+            if sub_index == len(matrix) - 1:
+                new_matrix.append(new_sub_list)
+    return new_matrix
+
 
 for _ in range(len(list1)):
     for i in range(len(list1)):
